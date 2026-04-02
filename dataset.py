@@ -8,13 +8,17 @@ messages: list[str] = []
 
 def main() -> None:
     for root, _, files in os.walk("Messages"):
-        for file in tqdm(files, desc="Iterating over files...", unit="file"):
+        for file in tqdm(files, desc=f"Iterating over {len(files)} files...", unit="file"):
             if file == "messages.json":
-                print("\nDoing file: " + os.path.join(root, file))
-                with open("messages.json", "r", encoding="utf-8") as f:
+                file_path = os.path.join(root, file)
+                print(f"\nDoing file: {file_path}")
+                with open(file_path, "r", encoding="utf-8") as f:
                     dataset = json.load(f)
                     for entry in dataset:
                         message: str = entry["Contents"] or ""
+                        # Let's skip code blocks and quotes, it may end up confusing the model.
+                        if "```" in message:
+                            continue
                         if message != "":
                             messages.append(message)
 
