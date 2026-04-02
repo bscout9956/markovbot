@@ -22,7 +22,7 @@ def load_markov_model() -> markovify.NewlineText:
         text: str = f.read()
 
     logging.info("Creating NewlineText. This may take a while")
-    return markovify.NewlineText(text)
+    return markovify.NewlineText(text, well_formed=False)
 
 
 intents: discord.Intents = discord.Intents.default()
