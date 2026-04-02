@@ -14,7 +14,7 @@ logging.info("Importing discord extensions")
 
 TOKEN = os.environ.get("MARKOVBOT_KEY", None)
 
-BOT_CHANNEL = os.environ.get("MARKOVBOT_CHANNEL_ID", None)
+BOT_CHANNEL = int(os.environ.get("MARKOVBOT_CHANNEL_ID", 0))
 
 
 def load_markov_model():
