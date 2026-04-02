@@ -8,10 +8,6 @@ import os
 handler = logging.FileHandler(
     filename='discord.log', encoding='utf-8', mode='w')
 
-logging.info("Importing markovify...")
-logging.info("Importing discord")
-logging.info("Importing discord extensions")
-
 TOKEN = os.environ.get("MARKOVBOT_KEY", "")
 
 BOT_CHANNEL = int(os.environ.get("MARKOVBOT_CHANNEL_ID", 0))
