@@ -1,3 +1,4 @@
+from discord.abc import PrivateChannel
 from discord.ext import tasks
 import discord
 import markovify
@@ -13,7 +14,7 @@ TOKEN = os.environ.get("MARKOVBOT_TOKEN", "")
 BOT_CHANNEL = int(os.environ.get("MARKOVBOT_CHANNEL_ID", 0))
 
 
-def load_markov_model():
+def load_markov_model() -> markovify.NewlineText:
     logging.info("Loading messages.txt...")
     with open("messages.txt", encoding="utf-8") as f:
         text: str = f.read()
@@ -32,8 +33,9 @@ text_model: markovify.NewlineText = load_markov_model()
 
 
 @tasks.loop(minutes=60)
-async def scout_thinks():
-    channel = client.get_channel(BOT_CHANNEL)
+async def scout_thinks() -> None:
+    channel: discord.VoiceChannel | discord.StageChannel | discord.ForumChannel | discord.TextChannel | discord.CategoryChannel | discord.Thread | PrivateChannel | None = client.get_channel(
+        BOT_CHANNEL)
     if channel and isinstance(channel, discord.abc.Messageable):
         generated_response = text_model.make_sentence(
         ) or "OOC: I was unable to generate a message. Try again!"
@@ -42,14 +44,14 @@ async def scout_thinks():
 
 
 @client.event
-async def on_ready():
+async def on_ready() -> None:
     logging.info(f"Logged in as {client.user}")
     if not scout_thinks.is_running():
         scout_thinks.start()
 
 
 @client.event
-async def on_message(message: discord.Message):
+async def on_message(message: discord.Message) -> None:
     logging.info("Message received!")
     if message.author == client.user:
         return
@@ -58,7 +60,7 @@ async def on_message(message: discord.Message):
         return
 
     generated_response = ""
-    stripped_message = message.content.replace("!talk", "").lstrip()
+    stripped_message: str = message.content.replace("!talk", "").lstrip()
 
     if stripped_message != "":
         if len(stripped_message.split(" ")) > 2:
