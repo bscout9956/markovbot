@@ -142,6 +142,9 @@ async def on_message(message: discord.Message) -> None:
         logging.error(f"Error generating message: {e}")
         generated_response = f"OOC: An error occurred while generating the message. Details: {repr(e)}."
 
+    if generated_response == "":
+        generated_response = f"OOC: I couldn't generate a message with the term '{terms_str}'. Try another term?"
+
     await message.channel.send(generated_response)
 
 client.run(botconfig.TOKEN, log_handler=handler, root_logger=True)
