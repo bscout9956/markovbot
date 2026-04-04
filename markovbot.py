@@ -48,14 +48,19 @@ def try_load_model() -> markovify.NewlineText:
 text_model: markovify.NewlineText = try_load_model()
 
 
-def random_with_lookup(look_up_term) -> str:
+def random_with_lookup(look_up_term: str) -> str:
     final_message = ""
     logging.info(f"Generating random message with lookup term: {look_up_term}")
     tries = 0
+    max_tries = botconfig.TRY_COUNT * 10
     start = time.time()
-    while tries < botconfig.TRY_COUNT * 10 and final_message == "":
+
+    if look_up_term not in text_model.chain.model:
+        return f"OOC: The term '{look_up_term}' was not found in the model. Try another term?"
+
+    while tries < max_tries and final_message == "":
         generated_message = text_model.make_sentence(tries=10) or ""
-        if look_up_term in generated_message:
+        if look_up_term.lower() in generated_message.lower():
             final_message = generated_message
             end = time.time()
             time_taken = end - start
@@ -63,8 +68,6 @@ def random_with_lookup(look_up_term) -> str:
 
         tries += 1
 
-    logging.info(
-        f"Final message generated with lookup term {look_up_term}: {final_message}")
     return final_message
 
 # Tasks and stuff
