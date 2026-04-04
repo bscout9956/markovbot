@@ -76,9 +76,16 @@ client: discord.Client = load_discord_client()
 # Client code
 
 
+async def status_check() -> None:
+    bot_channel = client.get_channel(botconfig.BOT_CHANNEL)
+    if bot_channel and isinstance(bot_channel, discord.abc.MessageableChannel):
+        await bot_channel.send("## The bot is now **online**!")
+
+
 @client.event
 async def on_ready() -> None:
     logging.info(f"Logged in as {client.user}")
+    await status_check()
 
 
 def is_valid_channel(message: discord.Message) -> bool:
