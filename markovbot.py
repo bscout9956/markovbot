@@ -14,26 +14,11 @@ handler = logging.FileHandler(
     filename='discord.log', encoding='utf-8', mode='w')
 
 
-def load_markov_model() -> markovify.NewlineText:
-    logging.info("Loading messages.txt...")
-    with open("messages.txt", encoding="utf-8") as f:
-        text: str = f.read()
-
-    logging.info("Creating NewlineText. This may take a while")
-    return markovify.NewlineText(text, well_formed=False, state_size=botconfig.STATE_SIZE)
-
-
-def load_discord_client() -> discord.Client:
-    intents: discord.Intents = discord.Intents.default()
-    intents.message_content = True
-    return discord.Client(intents=intents)
-
-
 def try_load_model() -> markovify.NewlineText:
     if not os.path.exists("markov_model.json"):
         logging.info(
             "markov_model.json not found. Loading messages.txt and creating model...")
-        text_model: markovify.NewlineText = load_markov_model()
+        text_model: markovify.NewlineText = utils.load_markov_model()
         logging.info("Saving model to markov_model.json...")
         model_manager.save_model(botconfig.STATE_SIZE)
         return text_model
@@ -72,6 +57,8 @@ client: discord.Client = load_discord_client()
 
 # Client code
 
+client: discord.Client = utils.load_discord_client()
+
 
 async def status_check() -> None:
     bot_channel = client.get_channel(botconfig.BOT_CHANNEL)
@@ -85,19 +72,6 @@ async def on_ready() -> None:
     await status_check()
 
 
-def is_valid_channel(message: discord.Message) -> bool:
-    is_correct_channel: bool = message.channel.id == botconfig.BOT_CHANNEL
-    is_correct_forum: bool = getattr(
-        message.channel, "parent_id", None) == botconfig.BOT_CHANNEL
-
-    if not is_correct_channel and not is_correct_forum:
-        logging.error(
-            f"Message received in a channel that is not the bot channel. Message channel ID: {message.channel.id}, Bot channel ID: {botconfig.BOT_CHANNEL}")
-        return False
-
-    return True
-
-
 @client.event
 async def on_message(message: discord.Message) -> None:
     logging.info(f"Message received from {message.author}.")
@@ -105,7 +79,7 @@ async def on_message(message: discord.Message) -> None:
     if message.content == "" or message.author == client.user or not message.content.startswith("!"):
         return
 
-    if not is_valid_channel(message):
+    if not utils.is_valid_channel(message):
         return
 
     split_message: list[str] = message.content.rstrip().split(" ")
@@ -146,5 +120,6 @@ async def on_message(message: discord.Message) -> None:
         generated_response = f"OOC: I couldn't generate a message with the term '{terms_str}'. Try another term?"
 
     await message.channel.send(generated_response)
+
 
 client.run(botconfig.TOKEN, log_handler=handler, root_logger=True)
