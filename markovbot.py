@@ -62,7 +62,7 @@ client: discord.Client = utils.load_discord_client()
 async def status_check() -> None:
     bot_channel = client.get_channel(botconfig.BOT_CHANNEL)
     if bot_channel and isinstance(bot_channel, discord.TextChannel):
-        await bot_channel.send("## The bot is now **online**!")
+        await bot_channel.send(f"## The bot is now **online**!\n ### Settings are 'TRY_COUNT': {botconfig.TRY_COUNT}, 'STATE_SIZE': {botconfig.STATE_SIZE}.")
 
 
 @client.event
