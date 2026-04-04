@@ -99,18 +99,13 @@ async def on_ready() -> None:
 async def on_message(message: discord.Message) -> None:
     logging.info(f"Message received from {message.author}.")
 
-    if message.content == "":
-        return
-
-    if not message.content.startswith("!"):
-        return
-
-    if message.author == client.user:
+    if message.content == "" or message.author == client.user or not message.content.startswith("!"):
         return
 
     is_correct_channel: bool = message.channel.id == botconfig.BOT_CHANNEL
     is_correct_forum: bool = getattr(
         message.channel, "parent_id", None) == botconfig.BOT_CHANNEL
+
     if not is_correct_channel and not is_correct_forum:
         logging.error(
             f"Message received in a channel that is not the bot channel. Message channel ID: {message.channel.id}, Bot channel ID: {botconfig.BOT_CHANNEL}")
