@@ -2,3 +2,4 @@ venv/
 *.json
 *.txt
 !requirements.txt
+__pycache__/
