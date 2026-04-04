@@ -71,8 +71,6 @@ def random_with_lookup(look_up_term) -> str:
 @client.event
 async def on_message(message: discord.Message) -> None:
     logging.info(f"Message received from {message.author}.")
-    if message.author == client.user:
-        return
 
     if message.content == "":
         return
@@ -80,24 +78,25 @@ async def on_message(message: discord.Message) -> None:
     if not message.content.startswith("!"):
         return
 
-    isTalk = False
-    isRandomTalk = False
+    if message.author == client.user:
+        return
 
+    is_correct_channel: bool = message.channel.id == BOT_CHANNEL
+    is_correct_forum: bool = getattr(
+        message.channel, "parent_id", None) == BOT_CHANNEL
+    if not is_correct_channel and not is_correct_forum:
+        logging.error(
+            f"Message received in a channel that is not the bot channel. Message channel ID: {message.channel.id}, Bot channel ID: {BOT_CHANNEL}")
+        return
+
+    isTalk = message.content.startswith("!talk")
+    isRandomTalk = message.content.startswith("!randomtalk")
     generated_response = ""
-    stripped_message = ""
 
-    if message.content.startswith("!randomtalk"):
-        logging.info("Message starts with !randomtalk")
-        isRandomTalk = True
-        stripped_message = message.content.replace("!randomtalk", "").lstrip()
-
-    if message.content.startswith("!talk"):
-        logging.info("Message starts with !talk")
-        isTalk = True
-        stripped_message: str = message.content.replace("!talk", "").lstrip()
-
-    # TODO: DRY principle
     if isTalk or isRandomTalk:
+        cmd = "!randomtalk" if isRandomTalk else "!talk"
+        stripped_message = message.content.replace(cmd, "").lstrip()
+
         if isTalk:
             if len(stripped_message.split(" ")) > STATE_SIZE:
                 await message.channel.send("OOC: You cannot have more than 2 words after the !talk command. Try again!")
