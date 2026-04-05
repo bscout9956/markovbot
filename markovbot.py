@@ -1,4 +1,6 @@
 
+import gc
+
 import discord
 import markovify
 import logging
@@ -60,6 +62,7 @@ async def status_check() -> None:
     bot_channel = client.get_channel(botconfig.BOT_CHANNEL)
     if bot_channel and isinstance(bot_channel, discord.TextChannel):
         await bot_channel.send(f"## The bot is now **online**!\n ### Settings are 'TRY_COUNT': {botconfig.TRY_COUNT}, 'STATE_SIZE': {botconfig.STATE_SIZE}.")
+        gc.collect()
 
 
 @client.event
@@ -96,6 +99,7 @@ async def on_message(message: discord.Message) -> None:
     try:
         if len(terms) > botconfig.STATE_SIZE - 1:
             await message.channel.send(f"OOC: You cannot have more than {botconfig.STATE_SIZE - 1} words after the {cmd} command. Try again!")
+            gc.collect()
 
         if isTalk:
             generated_response: str = text_model.make_sentence_with_start(
@@ -113,6 +117,7 @@ async def on_message(message: discord.Message) -> None:
         generated_response = f"OOC: I couldn't generate a message with the term '{terms_str}'. Try another term?"
 
     await message.channel.send(generated_response)
+    gc.collect()
 
 
 client.run(botconfig.TOKEN, log_handler=handler, root_logger=True)
