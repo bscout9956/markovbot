@@ -9,8 +9,10 @@ services:
             #user: "1001:1001"
 
             volumes:
-                  - /home/dockeruser/containers/markovbot/data:/markovbot/data
-                  - /home/dockeruser/containers/markovbot/logs:/markovbot/logs
+                  # NOTE: If you are using a container manager like Portainer you MUST hardcode your paths if you want
+                  # access to your files in a specific directory that's not inside Portainer's data path
+                  - ./data:/markovbot/data
+                  - ./logs:/markovbot/logs
 
                   # This technically allows you to make changes to the Python code and simply restart the container,
                   # because the mount is overwriting what was built in the image with the local directory. Think of
