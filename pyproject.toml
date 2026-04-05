@@ -1,0 +1,11 @@
+[project]
+name = "markovbot"
+version = "0.1.0"
+description = "Markovbot is a Discord Bot that utilizes Markovify and Markov Chains to imitate a user with their provided Message data."
+readme = "README.md"
+requires-python = ">=3.14"
+dependencies = [
+    "discord-py>=2.7.1",
+    "markovify>=0.9.4",
+    "tqdm>=4.67.3",
+]
