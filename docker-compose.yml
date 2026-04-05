@@ -1,6 +1,6 @@
 services:
       changedetection:
-            image: markovbot:latest
+            image: ghcr.io/spidervice/markovbot:main
             container_name: markovbot
 
             # It is recommended that you set the user that the container is running as to the same as the "host"
