@@ -1,0 +1,28 @@
+# markovbot outputs and inputs 
+# (you are supposed to provide them via volumes)
+*.txt
+*.log
+Messages
+data
+logs
+
+# development directories and files
+*venv
+.git
+.vscode
+.gitignore
+__pycache__/
+
+# readme, we don't need this in the container itself
+README.md
+
+# container files
+Dockerfile*
+docker-compose*.yml
+.dockerignore
+
+# secrets
+token*
+
+# we need this for Python
+!requirements.txt

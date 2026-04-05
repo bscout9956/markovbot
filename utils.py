@@ -1,22 +1,12 @@
 import logging
 import discord
-import markovify
-import botconfig
+import botconfig as botconfig
 
 
 def load_discord_client() -> discord.Client:
     intents: discord.Intents = discord.Intents.default()
     intents.message_content = True
     return discord.Client(intents=intents)
-
-
-def load_markov_model() -> markovify.NewlineText:
-    logging.info("Loading messages.txt...")
-    with open("messages.txt", encoding="utf-8") as f:
-        text: str = f.read()
-
-    logging.info("Creating NewlineText. This may take a while")
-    return markovify.NewlineText(text, well_formed=False, state_size=botconfig.STATE_SIZE)
 
 
 def is_valid_channel(message: discord.Message) -> bool:
