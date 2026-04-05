@@ -23,7 +23,7 @@ def try_load_model() -> markovify.NewlineText:
             "markov_model.json not found. Loading messages.txt and creating model...")
         text_model: markovify.NewlineText = model_manager.build_markov_model()
         logging.info("Saving model to markov_model.json...")
-        model_manager.save_model(botconfig.STATE_SIZE)
+        # model_manager.save_model(botconfig.STATE_SIZE)
         return text_model
     else:
         logging.info("markov_model.json found. Loading model...")
