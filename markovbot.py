@@ -36,17 +36,14 @@ def random_with_lookup(look_up_term: str) -> str:
     logging.info(f"Generating random message with lookup term: {look_up_term}")
     tries = 0
     max_tries = botconfig.TRY_COUNT * 10
-    start = time.time()
-
-    if look_up_term not in text_model.chain.model:
-        return f"OOC: The term '{look_up_term}' was not found in the model. Try another term?"
+    start: float = time.time()
 
     while tries < max_tries and final_message == "":
-        generated_message = text_model.make_sentence(tries=10) or ""
+        generated_message: str = text_model.make_sentence(tries=10) or ""
         if look_up_term.lower() in generated_message.lower():
             final_message = generated_message
-            end = time.time()
-            time_taken = end - start
+            end: float = time.time()
+            time_taken: float = end - start
             final_message += f"\n\n*Note: It took {tries} tries and {time_taken:.4f} seconds to generate this message with the term '{look_up_term}'*"
 
         tries += 1
