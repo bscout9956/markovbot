@@ -8,5 +8,6 @@ dependencies = [
     "discord-py>=2.7.1",
     "loguru>=0.7.3",
     "markovify>=0.9.4",
+    "pytest>=9.0.2",
     "tqdm>=4.67.3",
 ]
