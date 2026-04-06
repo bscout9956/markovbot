@@ -4,16 +4,24 @@ on:
             - "**"
 
 name: PyTest Testing
+
 jobs:
     test:
         name: Testing for Markovbot
         runs-on: ubuntu-latest
         steps:
-            - uses: actions/checkout@master
-            - uses: actions/setup-python@v4
-              with:
-                  python-version: '3.14'
-            - name: Install dependencies
-              run: uv sync
-            - name: Run tests
-              run: uv run pytest tests.py -v
+            -   uses: actions/checkout@v4
+
+            -   name: Install uv
+                uses: astral-sh/setup-uv@v5
+                with:
+                    enable-cache: true
+
+            -   name: Set up Python
+                run: uv python install 3.14
+
+            -   name: Install dependencies
+                run: uv sync
+
+            -   name: Run tests
+                run: uv run pytest tests.py -v
