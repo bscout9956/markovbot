@@ -7,7 +7,7 @@ ARG UV_VERSION=0.11.3
 FROM ghcr.io/astral-sh/uv:${UV_VERSION} AS uv
 
 # Compile Stage
-FROM python:${PYTHON_VERSION}-slim AS BUILD
+FROM python:${PYTHON_VERSION}-alpine AS BUILD
 
 COPY --from=uv /uv /uvx /bin/
 
