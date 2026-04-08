@@ -9,7 +9,7 @@ FROM ghcr.io/astral-sh/uv:${UV_VERSION} AS uv
 # Compile Stage
 FROM python:${PYTHON_VERSION}-slim AS BUILD
 
-COPY --from=uv /uv /uvx /bin
+COPY --from=uv /uv /uvx /bin/
 
 RUN mkdir /markovbot
 WORKDIR /markovbot
