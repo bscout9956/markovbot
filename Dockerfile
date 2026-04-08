@@ -7,7 +7,7 @@ ARG UV_VERSION=0.11.3
 FROM ghcr.io/astral-sh/uv:${UV_VERSION} AS uv
 
 # Compile Stage
-FROM python:${PYTHON_VERSION}-alpine AS BUILD
+FROM python:${PYTHON_VERSION}-alpine AS build
 
 COPY --from=uv /uv /uvx /bin/
 
@@ -28,7 +28,7 @@ RUN --mount=type=cache,target=/root/.cache/uv \
     uv sync --frozen --no-dev
 
 # Runtime Stage
-FROM python:${PYTHON_VERSION} as runtime
+FROM python:${PYTHON_VERSION} AS runtime
 
 ENV PATH="/markovbot/.venv/bin:$PATH"
 
