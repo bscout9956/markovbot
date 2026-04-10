@@ -80,7 +80,8 @@ async def status_check() -> None:
 @client.event
 async def on_ready() -> None:
     logger.info(f"Logged in as {client.user}")
-    await status_check()
+    if botconfig.ENABLE_GREETER:
+        await status_check()
 
 
 @client.event

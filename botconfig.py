@@ -5,6 +5,12 @@ TOKEN = os.environ.get("MARKOVBOT_TOKEN", "")
 BOT_CHANNEL = int(os.environ.get("MARKOVBOT_CHANNEL_ID", 0))
 TRY_COUNT = 50
 STATE_SIZE = 3
+ENABLE_GREETER = bool(
+    os.environ.get(
+        "MARKOVBOT_ENABLE_GREETER",
+        "True"
+    ).lower() in ("true", "1", "t")
+)
 
 
 # Enabling this will expose your hostname
