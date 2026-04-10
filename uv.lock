@@ -223,20 +223,16 @@ dependencies = [
 requires-dist = [
     { name = "discord-py", specifier = ">=2.7.1" },
     { name = "loguru", specifier = ">=0.7.3" },
-    { name = "markovify", specifier = ">=0.9.4" },
+    { name = "markovify", git = "https://github.com/bscout9956/markovify" },
     { name = "tqdm", specifier = ">=4.67.3" },
 ]
 
 [[package]]
 name = "markovify"
-version = "0.9.4"
-source = { registry = "https://pypi.org/simple" }
+version = "0.10.1"
+source = { git = "https://github.com/bscout9956/markovify#1c6f78430c5e339e92f80146a50cbe91ea9f39bc" }
 dependencies = [
     { name = "unidecode" },
-]
-sdist = { url = "https://files.pythonhosted.org/packages/7a/e2/d0f7df1d6cc9e0b5ab6018d5d302caa1639fe702f492362baac794b6e578/markovify-0.9.4.tar.gz", hash = "sha256:eac0a156ed54bb6bede32ef20131813fbec9db70b515ead57b4d8887a16dfe39", size = 27850, upload-time = "2022-03-03T02:41:58.754Z" }
-wheels = [
-    { url = "https://files.pythonhosted.org/packages/89/6c/daf4527ea22e9c9c7c7638c9b60a61b45f0a9b9aa181b512137b98fd83f1/markovify-0.9.4-py3-none-any.whl", hash = "sha256:0a64ab2fa44989248f4093bf93fbbeef23ca2a4610d53ab073523f600e88b7ae", size = 19140, upload-time = "2025-06-12T03:04:45.047Z" },
 ]
 
 [[package]]
