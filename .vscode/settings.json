@@ -1,7 +1,4 @@
 {
     "python.analysis.autoImportCompletions": true,
-    "conventionalCommits.scopes": ["git", "github-actions", "docker", "config", "logging"],
-    "python.testing.pytestArgs": ["."],
-    "python.testing.unittestEnabled": false,
-    "python.testing.pytestEnabled": true
+    "conventionalCommits.scopes": ["git", "github-actions", "docker", "config", "logging", "markovify", "model_manager"]
 }
