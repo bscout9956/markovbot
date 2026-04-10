@@ -62,7 +62,12 @@ client: discord.Client = utils.load_discord_client()
 async def status_check() -> None:
     bot_channel = client.get_channel(botconfig.BOT_CHANNEL)
     if bot_channel and isinstance(bot_channel, discord.TextChannel):
-        await bot_channel.send(f"## The bot is now **online**!\n ### Settings are 'TRY_COUNT': {botconfig.TRY_COUNT}, 'STATE_SIZE': {botconfig.STATE_SIZE}.")
+        bot_message: str = f"## The bot is now **online**!\n ### Settings are 'TRY_COUNT': {botconfig.TRY_COUNT}, 'STATE_SIZE': {botconfig.STATE_SIZE}."
+        if botconfig.SHOW_HOSTNAME:
+            import socket
+            bot_message += f"\n ### Hostname: {socket.gethostname()}"
+        await bot_channel.send(bot_message)
+
         gc.collect()
 
 
