@@ -64,6 +64,10 @@ async def status_check() -> None:
     if bot_channel and isinstance(bot_channel, discord.TextChannel):
         bot_message: str = f"## The bot is now **online**!\n ### Settings are 'TRY_COUNT': {botconfig.TRY_COUNT}, 'STATE_SIZE': {botconfig.STATE_SIZE}."
         if botconfig.SHOW_HOSTNAME:
+            logger.warning(
+                "SHOW_HOSTNAME is enabled. This will expose your hostname in the bot's status message.")
+            logger.warning(
+                "If you did not enable this intentionally, well...")
             import socket
             bot_message += f"\n ### Hostname: {socket.gethostname()}"
         await bot_channel.send(bot_message)
