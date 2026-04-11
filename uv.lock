@@ -229,8 +229,8 @@ requires-dist = [
 
 [[package]]
 name = "markovify"
-version = "0.10.2"
-source = { git = "https://github.com/bscout9956/markovify?branch=orjson#0ce73e5e28a3e95ec0458a34601db4d46dfa7e3e" }
+version = "0.10.3"
+source = { git = "https://github.com/bscout9956/markovify?branch=orjson#d3329e531f5558aca10757f79861148529d608f3" }
 dependencies = [
     { name = "orjson" },
     { name = "unidecode" },
