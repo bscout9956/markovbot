@@ -44,7 +44,7 @@ def load_model() -> markovify.NewlineText:
 def build_markov_model() -> markovify.NewlineText:
     logger.info("Loading messages.txt...")
     try:
-        with open("data/messages.txt", encoding="utf-8") as f:
+        with open("data/messages.txt", "r", encoding="utf-8") as f:
             text: str = f.read()
     except FileNotFoundError:
         logger.error(
