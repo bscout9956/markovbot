@@ -17,21 +17,21 @@ import utils
 #    filename='logs/discord.log', encoding='utf-8', mode='w')
 
 
-def try_load_model() -> markovify.NewlineText:
+async def try_load_model() -> markovify.NewlineText:
     if not os.path.exists("data/markov_model.json"):
         logger.info(
             "markov_model.json not found. Loading messages.txt and creating model...")
-        text_model: markovify.NewlineText = model_manager.build_markov_model()
+        text_model: markovify.NewlineText = await model_manager.build_markov_model()
         logger.info("Saving model to markov_model.json...")
-        model_manager.save_model(botconfig.STATE_SIZE)
+        await model_manager.save_model(botconfig.STATE_SIZE)
         return text_model
     else:
         logger.info("markov_model.json found. Loading model...")
-        return model_manager.load_model()
+        return await model_manager.load_model()
 
 
-load_time_s = time.time()
-text_model: markovify.NewlineText = try_load_model()
+load_time_s: float = time.time()
+text_model: markovify.NewlineText = asyncio.run(try_load_model())
 text_model.compile(inplace=True)  # Compile the model for faster generation
 load_time_e = time.time()
 logger.info(
