@@ -1,4 +1,13 @@
 {
     "python.analysis.autoImportCompletions": true,
-    "conventionalCommits.scopes": ["git", "github-actions", "docker", "config", "logging", "markovify", "model_manager"]
+    "conventionalCommits.scopes": [
+        "git",
+        "github-actions",
+        "docker",
+        "config",
+        "logging",
+        "markovify",
+        "model_manager",
+        "dataset"
+    ]
 }
