@@ -16,4 +16,4 @@ dependencies = [
 markovify = { git = "https://github.com/bscout9956/markovify", branch = "orjson" }
 
 [dependency-groups]
-dev = ["snakeviz>=2.2.2"]
+dev = ["pympler>=1.1", "snakeviz>=2.2.2"]
