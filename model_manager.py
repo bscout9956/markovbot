@@ -12,7 +12,7 @@ async def save_model(state_size: int) -> None:
         text: str = await f.read()
 
         text_model = markovify.NewlineText(
-            text, well_formed=False, state_size=state_size)
+            text, well_formed=False, state_size=state_size, retain_original=False)
 
         del text
 
