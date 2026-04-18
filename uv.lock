@@ -256,7 +256,7 @@ requires-dist = [
     { name = "aiofile", specifier = ">=3.9.0" },
     { name = "discord-py", specifier = ">=2.7.1" },
     { name = "loguru", specifier = ">=0.7.3" },
-    { name = "markovify", git = "https://github.com/bscout9956/markovify?branch=orjson" },
+    { name = "markovify", git = "https://github.com/bscout9956/markovify?branch=mem_squeeze" },
     { name = "tqdm", specifier = ">=4.67.3" },
 ]
 
@@ -268,8 +268,8 @@ dev = [
 
 [[package]]
 name = "markovify"
-version = "0.10.3"
-source = { git = "https://github.com/bscout9956/markovify?branch=orjson#2dd22d440b98a51f8664fd4088af33312569d131" }
+version = "0.10.4"
+source = { git = "https://github.com/bscout9956/markovify?branch=mem_squeeze#ac87b66b901736be67f045519c4f7fe50a5c26f4" }
 dependencies = [
     { name = "orjson" },
     { name = "unidecode" },
