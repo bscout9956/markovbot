@@ -33,8 +33,11 @@ async def save_model(state_size: int) -> None:
 async def load_model() -> markovify.NewlineText:
     try:
         async with async_open("data/markov_model.json", "r", encoding="utf-8") as model_file:
+            logger.info("Reading markov_model file...")
             model_json: str = await model_file.read()
+            logger.info("Loading model from_json...")
             model = markovify.NewlineText.from_json(model_json)
+            logger.info("Deleting model_json from memory...")
             del model_json
             return model
     except FileNotFoundError:
