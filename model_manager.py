@@ -13,16 +13,20 @@ async def save_model(state_size: int) -> None:
 
         text_model = markovify.NewlineText(
             text, well_formed=False, state_size=state_size)
-        text_model.compile(inplace=True)
-        model_json: str = text_model.to_json()
-        try:
-            async with async_open("data/markov_model.json", "w", encoding="utf-8") as af:
-                await af.write(model_json)
-        except PermissionError as e:
-            logger.error(
-                f"Permission error while trying to save the model: {repr(e)}")
-            logger.info(
-                f"Permission is {os.access('data/markov_model.json', os.W_OK)}")
+
+        del text
+
+    text_model.compile(inplace=True)
+    model_json: str = text_model.to_json()
+    try:
+        async with async_open("data/markov_model.json", "w", encoding="utf-8") as af:
+            await af.write(model_json)
+            del model_json
+    except PermissionError as e:
+        logger.error(
+            f"Permission error while trying to save the model: {repr(e)}")
+        logger.info(
+            f"Permission is {os.access('data/markov_model.json', os.W_OK)}")
     return
 
 
@@ -30,7 +34,9 @@ async def load_model() -> markovify.NewlineText:
     try:
         async with async_open("data/markov_model.json", "r", encoding="utf-8") as model_file:
             model_json: str = await model_file.read()
-            return markovify.NewlineText.from_json(model_json)
+            model = markovify.NewlineText.from_json(model_json)
+            del model_json
+            return model
     except FileNotFoundError:
         logger.error(
             "markov_model.json not found. Please build the model first.")
@@ -60,4 +66,7 @@ async def build_markov_model() -> markovify.NewlineText:
         raise
 
     logger.info("Creating NewlineText. This may take a while")
-    return markovify.NewlineText(text, well_formed=False, state_size=botconfig.STATE_SIZE)
+    model = markovify.NewlineText(
+        text, well_formed=False, state_size=botconfig.STATE_SIZE)
+    del text
+    return model

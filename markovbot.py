@@ -1,6 +1,5 @@
 
 import asyncio
-import gc
 import os
 import time
 
@@ -29,11 +28,10 @@ async def try_load_model() -> markovify.NewlineText:
         logger.info("markov_model.json found. Loading model...")
         return await model_manager.load_model()
 
-
 load_time_s: float = time.time()
 text_model: markovify.NewlineText = asyncio.run(try_load_model())
 text_model.compile(inplace=True)  # Compile the model for faster generation
-load_time_e = time.time()
+load_time_e: float = time.time()
 logger.info(
     f"Model loaded in {load_time_e - load_time_s:.4f} seconds.")
 
