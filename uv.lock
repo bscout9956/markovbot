@@ -3,6 +3,18 @@ revision = 3
 requires-python = ">=3.14"
 
 [[package]]
+name = "aiofile"
+version = "3.9.0"
+source = { registry = "https://pypi.org/simple" }
+dependencies = [
+    { name = "caio" },
+]
+sdist = { url = "https://files.pythonhosted.org/packages/67/e2/d7cb819de8df6b5c1968a2756c3cb4122d4fa2b8fc768b53b7c9e5edb646/aiofile-3.9.0.tar.gz", hash = "sha256:e5ad718bb148b265b6df1b3752c4d1d83024b93da9bd599df74b9d9ffcf7919b", size = 17943, upload-time = "2024-10-08T10:39:35.846Z" }
+wheels = [
+    { url = "https://files.pythonhosted.org/packages/50/25/da1f0b4dd970e52bf5a36c204c107e11a0c6d3ed195eba0bfbc664c312b2/aiofile-3.9.0-py3-none-any.whl", hash = "sha256:ce2f6c1571538cbdfa0143b04e16b208ecb0e9cb4148e528af8a640ed51cc8aa", size = 19539, upload-time = "2024-10-08T10:39:32.955Z" },
+]
+
+[[package]]
 name = "aiohappyeyeballs"
 version = "2.6.1"
 source = { registry = "https://pypi.org/simple" }
@@ -124,6 +136,19 @@ wheels = [
 ]
 
 [[package]]
+name = "caio"
+version = "0.9.25"
+source = { registry = "https://pypi.org/simple" }
+sdist = { url = "https://files.pythonhosted.org/packages/92/88/b8527e1b00c1811db339a1df8bd1ae49d146fcea9d6a5c40e3a80aaeb38d/caio-0.9.25.tar.gz", hash = "sha256:16498e7f81d1d0f5a4c0ad3f2540e65fe25691376e0a5bd367f558067113ed10", size = 26781, upload-time = "2025-12-26T15:21:36.501Z" }
+wheels = [
+    { url = "https://files.pythonhosted.org/packages/69/ca/a08fdc7efdcc24e6a6131a93c85be1f204d41c58f474c42b0670af8c016b/caio-0.9.25-cp314-cp314-macosx_10_15_universal2.whl", hash = "sha256:fab6078b9348e883c80a5e14b382e6ad6aabbc4429ca034e76e730cf464269db", size = 36978, upload-time = "2025-12-26T15:21:41.055Z" },
+    { url = "https://files.pythonhosted.org/packages/5e/6c/d4d24f65e690213c097174d26eda6831f45f4734d9d036d81790a27e7b78/caio-0.9.25-cp314-cp314-manylinux2010_x86_64.manylinux2014_x86_64.manylinux_2_12_x86_64.manylinux_2_17_x86_64.whl", hash = "sha256:44a6b58e52d488c75cfaa5ecaa404b2b41cc965e6c417e03251e868ecd5b6d77", size = 81832, upload-time = "2025-12-26T15:22:22.757Z" },
+    { url = "https://files.pythonhosted.org/packages/87/a4/e534cf7d2d0e8d880e25dd61e8d921ffcfe15bd696734589826f5a2df727/caio-0.9.25-cp314-cp314-manylinux_2_34_aarch64.whl", hash = "sha256:628a630eb7fb22381dd8e3c8ab7f59e854b9c806639811fc3f4310c6bd711d79", size = 81565, upload-time = "2026-03-04T22:08:27.483Z" },
+    { url = "https://files.pythonhosted.org/packages/3f/ed/bf81aeac1d290017e5e5ac3e880fd56ee15e50a6d0353986799d1bc5cfd5/caio-0.9.25-cp314-cp314-manylinux_2_34_x86_64.whl", hash = "sha256:0ba16aa605ccb174665357fc729cf500679c2d94d5f1458a6f0d5ca48f2060a7", size = 80071, upload-time = "2026-03-04T22:08:28.751Z" },
+    { url = "https://files.pythonhosted.org/packages/86/93/1f76c8d1bafe3b0614e06b2195784a3765bbf7b0a067661af9e2dd47fc33/caio-0.9.25-py3-none-any.whl", hash = "sha256:06c0bb02d6b929119b1cfbe1ca403c768b2013a369e2db46bfa2a5761cf82e40", size = 19087, upload-time = "2025-12-26T15:22:00.221Z" },
+]
+
+[[package]]
 name = "colorama"
 version = "0.4.6"
 source = { registry = "https://pypi.org/simple" }
@@ -213,6 +238,7 @@ name = "markovbot"
 version = "0.1.0"
 source = { virtual = "." }
 dependencies = [
+    { name = "aiofile" },
     { name = "discord-py" },
     { name = "loguru" },
     { name = "markovify" },
@@ -221,24 +247,29 @@ dependencies = [
 
 [package.dev-dependencies]
 dev = [
+    { name = "pympler" },
     { name = "snakeviz" },
 ]
 
 [package.metadata]
 requires-dist = [
+    { name = "aiofile", specifier = ">=3.9.0" },
     { name = "discord-py", specifier = ">=2.7.1" },
     { name = "loguru", specifier = ">=0.7.3" },
-    { name = "markovify", git = "https://github.com/bscout9956/markovify?branch=orjson" },
+    { name = "markovify", git = "https://github.com/bscout9956/markovify?branch=mem_squeeze" },
     { name = "tqdm", specifier = ">=4.67.3" },
 ]
 
 [package.metadata.requires-dev]
-dev = [{ name = "snakeviz", specifier = ">=2.2.2" }]
+dev = [
+    { name = "pympler", specifier = ">=1.1" },
+    { name = "snakeviz", specifier = ">=2.2.2" },
+]
 
 [[package]]
 name = "markovify"
-version = "0.10.3"
-source = { git = "https://github.com/bscout9956/markovify?branch=orjson#2dd22d440b98a51f8664fd4088af33312569d131" }
+version = "0.10.4"
+source = { git = "https://github.com/bscout9956/markovify?branch=mem_squeeze#ac87b66b901736be67f045519c4f7fe50a5c26f4" }
 dependencies = [
     { name = "orjson" },
     { name = "unidecode" },
@@ -349,6 +380,28 @@ wheels = [
     { url = "https://files.pythonhosted.org/packages/cb/ef/3c6ecf8b317aa982f309835e8f96987466123c6e596646d4e6a1dfcd080f/propcache-0.4.1-cp314-cp314t-win_amd64.whl", hash = "sha256:990f6b3e2a27d683cb7602ed6c86f15ee6b43b1194736f9baaeb93d0016633b1", size = 46259, upload-time = "2025-10-08T19:48:34.226Z" },
     { url = "https://files.pythonhosted.org/packages/c4/2d/346e946d4951f37eca1e4f55be0f0174c52cd70720f84029b02f296f4a38/propcache-0.4.1-cp314-cp314t-win_arm64.whl", hash = "sha256:ecef2343af4cc68e05131e45024ba34f6095821988a9d0a02aa7c73fcc448aa9", size = 40428, upload-time = "2025-10-08T19:48:35.441Z" },
     { url = "https://files.pythonhosted.org/packages/5b/5a/bc7b4a4ef808fa59a816c17b20c4bef6884daebbdf627ff2a161da67da19/propcache-0.4.1-py3-none-any.whl", hash = "sha256:af2a6052aeb6cf17d3e46ee169099044fd8224cbaf75c76a2ef596e8163e2237", size = 13305, upload-time = "2025-10-08T19:49:00.792Z" },
+]
+
+[[package]]
+name = "pympler"
+version = "1.1"
+source = { registry = "https://pypi.org/simple" }
+dependencies = [
+    { name = "pywin32", marker = "sys_platform == 'win32'" },
+]
+sdist = { url = "https://files.pythonhosted.org/packages/dd/37/c384631908029676d8e7213dd956bb686af303a80db7afbc9be36bc49495/pympler-1.1.tar.gz", hash = "sha256:1eaa867cb8992c218430f1708fdaccda53df064144d1c5656b1e6f1ee6000424", size = 179954, upload-time = "2024-06-28T19:56:06.563Z" }
+wheels = [
+    { url = "https://files.pythonhosted.org/packages/79/4f/a6a2e2b202d7fd97eadfe90979845b8706676b41cbd3b42ba75adf329d1f/Pympler-1.1-py3-none-any.whl", hash = "sha256:5b223d6027d0619584116a0cbc28e8d2e378f7a79c1e5e024f9ff3b673c58506", size = 165766, upload-time = "2024-06-28T19:56:05.087Z" },
+]
+
+[[package]]
+name = "pywin32"
+version = "311"
+source = { registry = "https://pypi.org/simple" }
+wheels = [
+    { url = "https://files.pythonhosted.org/packages/c9/31/097f2e132c4f16d99a22bfb777e0fd88bd8e1c634304e102f313af69ace5/pywin32-311-cp314-cp314-win32.whl", hash = "sha256:b7a2c10b93f8986666d0c803ee19b5990885872a7de910fc460f9b0c2fbf92ee", size = 8840714, upload-time = "2025-07-14T20:13:32.449Z" },
+    { url = "https://files.pythonhosted.org/packages/90/4b/07c77d8ba0e01349358082713400435347df8426208171ce297da32c313d/pywin32-311-cp314-cp314-win_amd64.whl", hash = "sha256:3aca44c046bd2ed8c90de9cb8427f581c479e594e99b5c0bb19b29c10fd6cb87", size = 9656800, upload-time = "2025-07-14T20:13:34.312Z" },
+    { url = "https://files.pythonhosted.org/packages/c0/d2/21af5c535501a7233e734b8af901574572da66fcc254cb35d0609c9080dd/pywin32-311-cp314-cp314-win_arm64.whl", hash = "sha256:a508e2d9025764a8270f93111a970e1d0fbfc33f4153b388bb649b7eec4f9b42", size = 8932540, upload-time = "2025-07-14T20:13:36.379Z" },
 ]
 
 [[package]]

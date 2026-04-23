@@ -5,6 +5,7 @@ description = "Markovbot is a Discord Bot that utilizes Markovify and Markov Cha
 readme = "README.md"
 requires-python = ">=3.14"
 dependencies = [
+    "aiofile>=3.9.0",
     "discord-py>=2.7.1",
     "loguru>=0.7.3",
     "markovify",
@@ -12,7 +13,7 @@ dependencies = [
 ]
 
 [tool.uv.sources]
-markovify = { git = "https://github.com/bscout9956/markovify", branch = "orjson" }
+markovify = { git = "https://github.com/bscout9956/markovify" }
 
 [dependency-groups]
-dev = ["snakeviz>=2.2.2"]
+dev = ["pympler>=1.1", "snakeviz>=2.2.2"]
